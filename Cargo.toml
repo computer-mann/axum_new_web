@@ -1,0 +1,16 @@
+[package]
+name = "axum_new_web"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+axum="0.7.4"
+tokio ={ version = "1.36.0" , features = ["full"] }
+serde_json = "1.0.122"
+serde = { version = "1.0.197", features = ["derive"] }
+simple_logger = "5.0.0"
+log = "0.4.22"
+dotenv = "0.15.0"
+dotenv_codegen = "0.15.0"
