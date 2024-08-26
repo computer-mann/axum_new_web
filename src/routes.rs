@@ -1,3 +1,4 @@
+use std::str::FromStr;
 use axum::http::{header, StatusCode};
 use axum::Json;
     use axum::response::IntoResponse;
@@ -32,9 +33,11 @@ use axum::Json;
 // `(StatusCode, headers, impl IntoResponse)` to set status and add headers
 // `headers` can be either a `HeaderMap` or an array of tuples
 pub async fn with_status_and_array_headers() -> impl IntoResponse {
+    let custom_header=header::HeaderName::from_str("last_game").unwrap();
     (
         StatusCode::NOT_FOUND,
-        [(header::CONTENT_TYPE, "text/plain")],
+        [(header::CONTENT_TYPE, "text/plain"),
+            (custom_header,"battlefront 2")],
         "foo",
     )
 }
