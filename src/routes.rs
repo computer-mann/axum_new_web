@@ -5,8 +5,9 @@ use axum::Json;
     use dotenv_codegen::dotenv;
     use serde::{Deserialize, Serialize};
     use serde_json::{json, Value};
+use utoipa::ToSchema;
 
-    pub async fn hellow_word() ->String{
+pub async fn hellow_word() ->String{
         "Hello, World! from axum need to learn rust.".to_string()
     }
 
@@ -15,6 +16,14 @@ use axum::Json;
         "Tell me something".to_string()
     }
 
+#[utoipa::path(
+    get,
+    path = "/json",
+    responses(
+            (status = 200, description = "Json message found successfully", body = Message),
+            (status = NOT_FOUND, description = "Message was not found")
+    )
+)]
     pub async fn json_return()->Json<Message>{
         let data=Message{ message : "Json message".to_string()};
         log::info!("json endpoint was called");
@@ -41,7 +50,7 @@ pub async fn with_status_and_array_headers() -> impl IntoResponse {
         "foo",
     )
 }
-    #[derive(Serialize,Deserialize)]
+    #[derive(Serialize,Deserialize,ToSchema)]
     pub struct Message{
        message: String
     }
